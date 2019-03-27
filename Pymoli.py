@@ -59,10 +59,10 @@ print(gdf)
 #Age Demographics
 max_age = purchase_data.Age.max()
 
-#Divide by 5-year groupings
-num_bins = (max_age - 10) / 5
+#Deterine number of bins needed. Divide by 5-year groupings. Subtract 9 for first group 0 - 9 years old.
+num_bins = (max_age - 9) / 5
 
-#If division by 5 returns a remainder, need an additional bin.
+#If division by 5 returns a remainder, need an additional bin for that 0.xx person.
 if num_bins % 5 != 0:
     num_bins += 1
 
@@ -75,11 +75,9 @@ for i in range(int(num_bins)):
     upper_bin_age += 5
     bins_list.append(upper_bin_age)
     labels_list.append(str(upper_bin_age - 4) + "-" + str(upper_bin_age))
-print(labels_list)
 
 #create new column 'age_bin'
 purchase_data['age_bin'] = pd.cut(purchase_data['Age'], bins=bins_list, labels=labels_list)
-print(purchase_data.head(10))
 
 purchase_count_by_age_bin = purchase_data.groupby('age_bin').Price.count()
 num_persons_in_age_bin = purchase_data.groupby('age_bin').SN.nunique()
@@ -93,4 +91,29 @@ age_demographics_df = pd.DataFrame ({
     "Total Purchase Value": total_purchases_by_age_bin,
     "Average Purchase Total Per Person": avg_purchase_per_person_by_age_bin
 })
-print(age_demographics_df)
+#print(age_demographics_df)
+
+#Top Spenders
+
+
+#Most Popular Items
+#create new data frame from purchase_data
+most_popular_df= pd.DataFrame(purchase_data)
+
+# most_popular_df = pd.DataFrame(purchase_data.groupby(['Item ID', 'Item Name', 'Price'])['Item ID'].count().nlargest(5))
+most_popular_itemcount= purchase_data.groupby('Item ID')['Purchase ID'].count()
+most_popular_price= purchase_data.groupby('Item ID')['Price'].sum()
+most_popular_price= purchase_data.groupby('Item ID')['Price'].sum()
+
+most_popular_df['Total Purchase Value'] = most_popular_df['Price'] * most_popular_df['Item Count']
+print(most_popular_df.head(10)
+# most_popular_itemcount =purchase_data.groupby('Item ID')['Item ID'].count()
+
+# # for a, b, c, d in most_popular_df:
+# #     print (a, b, c, d)
+# print(most_popular_df)
+
+# # for value, a in most_popular_df['Item ID'].value_counts().iteritems():
+# #     print(value, a)
+# #print(most_popular_df)
+
