@@ -1,4 +1,4 @@
-# Heroes of Pymoli
+## Heroes of Pymoli
 Data munging activity to analyze data for a fantasy game, Heroes of Pymoli. 
 Analysis Done:
 Purchasing Analysis:
@@ -30,7 +30,7 @@ Python Skills Used
 * Append to List
 * loc
 
-# Academy of Py
+## Academy of Py
 Python script to analyze school district’s standardized test results for math and reading by aggregating the data and showcasing trends in school performance. Thousands of records of data are analyzed. 
 Analysis
 * District summary, including total schools, total students, total budget, average math score, average reading score, percentage passing math, percentage passing reading, overall passing rate
